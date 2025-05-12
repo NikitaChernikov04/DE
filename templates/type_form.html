@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>{% if type_obj %}Редактировать{% else %}Добавить{% endif %} тип партнёра</title>
@@ -9,13 +9,15 @@
     <h1>{% if type_obj %}Редактировать{% else %}Добавить{% endif %} тип партнёра</h1>
     
     <form method="post">
-        <label>Наименование типа:</label>
-        <input type="text" name="name" value="{{ type_obj.name if type_obj else '' }}" required>
+        <p>
+            <label for="name">Наименование типа:</label><br>
+            <input id="name" type="text" name="name" value="{{ type_obj.name if type_obj else '' }}">
+        </p>
         
-        <div class="actions">
-            <button type="submit" class="btn">Сохранить</button>
-            <a href="{{ url_for('types_list') }}" class="btn btn-secondary">Отмена</a>
-        </div>
+        <p>
+            <button type="submit">Сохранить</button>
+            <a href="{{ url_for('types_list') }}">Отмена</a>
+        </p>
     </form>
 </body>
 </html> 

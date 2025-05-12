@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>История продаж — {{ partner.name }}</title>
@@ -8,40 +8,36 @@
 <body>
     <h1>История продаж — {{ partner.name }}</h1>
     
-    <div class="partner-info">
-        <p><strong>Тип партнёра:</strong> {{ partner.type.name }}</p>
-        <p><strong>Общая сумма продаж:</strong> {{ "{:,.2f}".format(total_amount) }} руб.</p>
-        <p><strong>Текущая скидка:</strong> <span class="discount">{{ discount }}%</span></p>
-    </div>
+    <p>
+        <b>Тип партнёра:</b> {{ partner.type.name }}<br>
+        <b>Общая сумма продаж:</b> {{ "{:,.2f}".format(total_amount) }} руб.<br>
+        <b>Текущая скидка:</b> {{ discount }}%
+    </p>
     
-    <div class="actions">
-        <a href="{{ url_for('add_sale', partner_id=partner.id) }}" class="btn">Добавить продажу</a>
-        <a href="{{ url_for('index') }}" class="btn btn-secondary">Назад к списку</a>
-    </div>
+    <p>
+        <a href="{{ url_for('add_sale', partner_id=partner.id) }}">Добавить продажу</a> |
+        <a href="{{ url_for('index') }}">Назад к списку партнёров</a>
+    </p>
     
     <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Продукция</th>
-                <th>Цена за ед.</th>
-                <th>Количество</th>
-                <th>Общая стоимость</th>
-                <th>Дата продажи</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for sale in sales %}
-            <tr>
-                <td>{{ sale.id }}</td>
-                <td>{{ sale.product.name if sale.product else '' }}</td>
-                <td>{{ "{:,.2f}".format(sale.product.price) }} руб.</td>
-                <td>{{ sale.quantity }}</td>
-                <td>{{ "{:,.2f}".format(sale.total_price) }} руб.</td>
-                <td>{{ sale.sale_date }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        <tr>
+            <th>ID</th>
+            <th>Продукция</th>
+            <th>Цена за ед.</th>
+            <th>Количество</th>
+            <th>Общая стоимость</th>
+            <th>Дата продажи</th>
+        </tr>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.product.name if sale.product else '' }}</td>
+            <td>{{ "{:,.2f}".format(sale.product.price) }} руб.</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{{ "{:,.2f}".format(sale.total_price) }} руб.</td>
+            <td>{{ sale.sale_date }}</td>
+        </tr>
+        {% endfor %}
     </table>
 </body>
 </html> 

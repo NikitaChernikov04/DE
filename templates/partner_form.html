@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>{% if partner %}Редактировать{% else %}Добавить{% endif %} партнёра</title>
@@ -9,35 +9,49 @@
     <h1>{% if partner %}Редактировать{% else %}Добавить{% endif %} партнёра</h1>
     
     <form method="post">
-        <label>Наименование:</label>
-        <input type="text" name="name" value="{{ partner.name if partner else '' }}" required>
+        <p>
+            <label for="name">Наименование:</label><br>
+            <input id="name" type="text" name="name" value="{{ partner.name if partner else '' }}">
+        </p>
         
-        <label>Тип партнёра:</label>
-        <select name="type_id" required>
-            {% for t in types %}
-            <option value="{{ t.id }}" {% if partner and partner.type_id == t.id %}selected{% endif %}>{{ t.name }}</option>
-            {% endfor %}
-        </select>
+        <p>
+            <label for="type_id">Тип партнёра:</label><br>
+            <select id="type_id" name="type_id">
+                {% for t in types %}
+                <option value="{{ t.id }}" {% if partner and partner.type_id == t.id %}selected{% endif %}>{{ t.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
         
-        <label>Рейтинг:</label>
-        <input type="number" name="rating" value="{{ partner.rating if partner else '' }}" required>
+        <p>
+            <label for="rating">Рейтинг:</label><br>
+            <input id="rating" type="number" name="rating" value="{{ partner.rating if partner else '' }}">
+        </p>
         
-        <label>Адрес:</label>
-        <input type="text" name="address" value="{{ partner.address if partner else '' }}">
+        <p>
+            <label for="address">Адрес:</label><br>
+            <input id="address" type="text" name="address" value="{{ partner.address if partner else '' }}">
+        </p>
         
-        <label>ФИО директора:</label>
-        <input type="text" name="director_name" value="{{ partner.director_name if partner else '' }}">
+        <p>
+            <label for="director_name">ФИО директора:</label><br>
+            <input id="director_name" type="text" name="director_name" value="{{ partner.director_name if partner else '' }}">
+        </p>
         
-        <label>Телефон:</label>
-        <input type="text" name="phone" value="{{ partner.phone if partner else '' }}">
+        <p>
+            <label for="phone">Телефон:</label><br>
+            <input id="phone" type="text" name="phone" value="{{ partner.phone if partner else '' }}">
+        </p>
         
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ partner.email if partner else '' }}">
+        <p>
+            <label for="email">Email:</label><br>
+            <input id="email" type="email" name="email" value="{{ partner.email if partner else '' }}">
+        </p>
         
-        <div class="actions">
-            <button type="submit" class="btn">Сохранить</button>
-            <a href="{{ url_for('index') }}" class="btn btn-secondary">Отмена</a>
-        </div>
+        <p>
+            <button type="submit">Сохранить</button>
+            <a href="{{ url_for('index') }}">Отмена</a>
+        </p>
     </form>
 </body>
 </html> 

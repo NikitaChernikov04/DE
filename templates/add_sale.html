@@ -1,61 +1,61 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Добавить продажу — {{ partner.name }}</title>
     <link rel="stylesheet" href="/static/style.css">
     <script>
-        // Сохраняем цены продуктов в JavaScript-переменной
-        document.addEventListener('DOMContentLoaded', function() {
-            updatePriceInfo();
-        });
-        
         function updatePriceInfo() {
-            // Получаем нужные элементы
             var select = document.getElementById('product_select');
             var quantity = document.getElementById('quantity_input').value;
             var priceDisplay = document.getElementById('price_display');
             var totalDisplay = document.getElementById('total_display');
             
-            // Получаем выбранную опцию и её цену из data-атрибута
             var selectedOption = select.options[select.selectedIndex];
             var price = parseFloat(selectedOption.getAttribute('data-price'));
-            
-            // Вычисляем общую сумму
             var total = price * parseInt(quantity || 0);
             
-            // Отображаем результаты
             priceDisplay.textContent = price.toFixed(2) + ' руб.';
             totalDisplay.textContent = total.toFixed(2) + ' руб.';
         }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePriceInfo();
+        });
     </script>
 </head>
 <body>
     <h1>Добавить продажу — {{ partner.name }}</h1>
     
     <form method="post">
-        <label>Продукция:</label>
-        <select name="product_id" id="product_select" required onchange="updatePriceInfo()">
-            {% for p in products %}
-            <option value="{{ p.id }}" data-price="{{ p.price }}">{{ p.name }} ({{ "{:,.2f}".format(p.price) }} руб.)</option>
-            {% endfor %}
-        </select>
+        <p>
+            <label for="product_select">Продукция:</label><br>
+            <select id="product_select" name="product_id" onchange="updatePriceInfo()">
+                {% for p in products %}
+                <option value="{{ p.id }}" data-price="{{ p.price }}">{{ p.name }} ({{ "{:,.2f}".format(p.price) }} руб.)</option>
+                {% endfor %}
+            </select>
+        </p>
         
-        <label>Количество:</label>
-        <input type="number" name="quantity" id="quantity_input" min="1" max="2147483647" required value="1" oninput="updatePriceInfo()">
+        <p>
+            <label for="quantity_input">Количество:</label><br>
+            <input id="quantity_input" type="number" name="quantity" min="1" max="2147483647" value="1" oninput="updatePriceInfo()">
+        </p>
         
-        <div class="price-info">
-            <p><strong>Цена за единицу:</strong> <span id="price_display">0.00 руб.</span></p>
-            <p><strong>Итоговая стоимость:</strong> <span id="total_display">0.00 руб.</span></p>
-        </div>
+        <p>
+            <b>Цена за единицу:</b> <span id="price_display">0.00 руб.</span><br>
+            <b>Итоговая стоимость:</b> <span id="total_display">0.00 руб.</span>
+        </p>
         
-        <label>Дата продажи:</label>
-        <input type="date" name="sale_date" value="{{ today_date }}" required>
+        <p>
+            <label for="sale_date">Дата продажи:</label><br>
+            <input id="sale_date" type="date" name="sale_date" value="{{ today_date }}">
+        </p>
         
-        <div class="actions">
-            <button type="submit" class="btn">Сохранить</button>
-            <a href="{{ url_for('partner_history', partner_id=partner.id) }}" class="btn btn-secondary">Отмена</a>
-        </div>
+        <p>
+            <button type="submit">Сохранить</button>
+            <a href="{{ url_for('partner_history', partner_id=partner.id) }}">Отмена</a>
+        </p>
     </form>
 </body>
 </html> 
