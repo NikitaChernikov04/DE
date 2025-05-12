@@ -4,37 +4,12 @@
     <meta charset="UTF-8">
     <title>Добавить продажу — {{ partner.name }}</title>
     <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <h1>Добавить продажу — {{ partner.name }}</h1>
-    
-    <form method="post">
-        <label>Продукция:<br>
-            <select name="product_id" id="product_select" required onchange="updatePriceInfo()">
-                {% for p in products %}
-                <option value="{{ p.id }}" data-price="{{ p.price }}">{{ p.name }} ({{ "{:,.2f}".format(p.price) }} руб.)</option>
-                {% endfor %}
-            </select>
-        </label><br>
-        
-        <label>Количество:<br>
-            <input type="number" name="quantity" id="quantity_input" min="1" max="2147483647" required value="1" oninput="updatePriceInfo()">
-        </label><br>
-        
-        <div class="price-info">
-            <p><strong>Цена за единицу:</strong> <span id="price_display">0.00 руб.</span></p>
-            <p><strong>Итоговая стоимость:</strong> <span id="total_display">0.00 руб.</span></p>
-        </div>
-        
-        <label>Дата продажи:<br>
-            <input type="date" name="sale_date" value="{{ today_date }}" required>
-        </label><br>
-        
-        <button type="submit">Сохранить</button>
-        <a href="{{ url_for('partner_history', partner_id=partner.id) }}">Отмена</a>
-    </form>
-
     <script>
+        // Сохраняем цены продуктов в JavaScript-переменной
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePriceInfo();
+        });
+        
         function updatePriceInfo() {
             // Получаем нужные элементы
             var select = document.getElementById('product_select');
@@ -53,11 +28,34 @@
             priceDisplay.textContent = price.toFixed(2) + ' руб.';
             totalDisplay.textContent = total.toFixed(2) + ' руб.';
         }
-        
-        // Вызываем функцию при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            updatePriceInfo();
-        });
     </script>
+</head>
+<body>
+    <h1>Добавить продажу — {{ partner.name }}</h1>
+    
+    <form method="post">
+        <label>Продукция:</label>
+        <select name="product_id" id="product_select" required onchange="updatePriceInfo()">
+            {% for p in products %}
+            <option value="{{ p.id }}" data-price="{{ p.price }}">{{ p.name }} ({{ "{:,.2f}".format(p.price) }} руб.)</option>
+            {% endfor %}
+        </select>
+        
+        <label>Количество:</label>
+        <input type="number" name="quantity" id="quantity_input" min="1" max="2147483647" required value="1" oninput="updatePriceInfo()">
+        
+        <div class="price-info">
+            <p><strong>Цена за единицу:</strong> <span id="price_display">0.00 руб.</span></p>
+            <p><strong>Итоговая стоимость:</strong> <span id="total_display">0.00 руб.</span></p>
+        </div>
+        
+        <label>Дата продажи:</label>
+        <input type="date" name="sale_date" value="{{ today_date }}" required>
+        
+        <div class="actions">
+            <button type="submit" class="btn">Сохранить</button>
+            <a href="{{ url_for('partner_history', partner_id=partner.id) }}" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
 </body>
 </html> 

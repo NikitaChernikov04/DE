@@ -7,7 +7,12 @@
 </head>
 <body>
     <h1>Список партнёров</h1>
-    <a href="{{ url_for('add_partner') }}" class="btn">Добавить партнёра</a>
+    
+    <div class="actions">
+        <a href="{{ url_for('add_partner') }}" class="btn">Добавить партнёра</a>
+        <a href="{{ url_for('types_list') }}" class="btn btn-secondary">Типы партнёров</a>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -34,8 +39,8 @@
                 <td>{{ partner.phone }}</td>
                 <td>{{ partner.email }}</td>
                 <td>
-                    <a href="{{ url_for('edit_partner', partner_id=partner.id) }}">Редактировать</a> |
-                    <a href="{{ url_for('partner_history', partner_id=partner.id) }}">История продаж</a>
+                    <a href="{{ url_for('edit_partner', partner_id=partner.id) }}" class="btn">Редактировать</a>
+                    <a href="{{ url_for('partner_history', partner_id=partner.id) }}" class="btn btn-secondary">История продаж</a>
                 </td>
             </tr>
             {% endfor %}

@@ -7,8 +7,12 @@
 </head>
 <body>
     <h1>Типы партнёров</h1>
-    <a href="{{ url_for('add_type') }}" class="btn">Добавить тип</a>
-    <a href="{{ url_for('index') }}" class="btn">К списку партнёров</a>
+    
+    <div class="actions">
+        <a href="{{ url_for('add_type') }}" class="btn">Добавить тип</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">К списку партнёров</a>
+    </div>
+    
     <table>
         <thead>
             <tr>
@@ -23,7 +27,7 @@
                 <td>{{ t.id }}</td>
                 <td>{{ t.name }}</td>
                 <td>
-                    <a href="{{ url_for('edit_type', type_id=t.id) }}">Редактировать</a>
+                    <a href="{{ url_for('edit_type', type_id=t.id) }}" class="btn">Редактировать</a>
                 </td>
             </tr>
             {% endfor %}

@@ -7,12 +7,15 @@
 </head>
 <body>
     <h1>{% if type_obj %}Редактировать{% else %}Добавить{% endif %} тип партнёра</h1>
+    
     <form method="post">
-        <label>Наименование типа:<br>
-            <input type="text" name="name" value="{{ type_obj.name if type_obj else '' }}" required>
-        </label><br>
-        <button type="submit">Сохранить</button>
-        <a href="{{ url_for('types_list') }}">Отмена</a>
+        <label>Наименование типа:</label>
+        <input type="text" name="name" value="{{ type_obj.name if type_obj else '' }}" required>
+        
+        <div class="actions">
+            <button type="submit" class="btn">Сохранить</button>
+            <a href="{{ url_for('types_list') }}" class="btn btn-secondary">Отмена</a>
+        </div>
     </form>
 </body>
 </html> 

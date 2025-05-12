@@ -7,15 +7,16 @@
 </head>
 <body>
     <h1>История продаж — {{ partner.name }}</h1>
+    
     <div class="partner-info">
         <p><strong>Тип партнёра:</strong> {{ partner.type.name }}</p>
         <p><strong>Общая сумма продаж:</strong> {{ "{:,.2f}".format(total_amount) }} руб.</p>
-        <p><strong>Текущая скидка:</strong> {{ discount }}%</p>
+        <p><strong>Текущая скидка:</strong> <span class="discount">{{ discount }}%</span></p>
     </div>
     
     <div class="actions">
         <a href="{{ url_for('add_sale', partner_id=partner.id) }}" class="btn">Добавить продажу</a>
-        <a href="{{ url_for('index') }}" class="btn">Назад к списку партнёров</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Назад к списку</a>
     </div>
     
     <table>
